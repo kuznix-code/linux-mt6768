@@ -24,6 +24,7 @@ properties:
       - items:
           - enum:
               - mediatek,mt7988-cci
+              - mediatek,mt6768-cci
           - const: mediatek,mt8183-cci
 
   clocks:
