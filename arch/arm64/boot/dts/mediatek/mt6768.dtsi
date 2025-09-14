@@ -7,6 +7,7 @@
 #include <dt-bindings/interrupt-controller/irq.h>
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 #include <dt-bindings/phy/phy.h>
+#include <dt-bindings/thermal/thermal.h>
 #include <dt-bindings/pinctrl/mediatek,mt6768-pinfunc.h>
 #include <dt-bindings/clock/mediatek,mt6768-clk.h>
 #include <dt-bindings/power/mt6768-power.h>
@@ -311,6 +312,7 @@
 			d-cache-line-size = <64>;
 			d-cache-sets = <128>;
 			next-level-cache = <&l2_0>;
+			#cooling-cells = <2>;
 			mediatek,cci = <&cci>;
 		};
 
@@ -333,6 +335,7 @@
 			d-cache-line-size = <64>;
 			d-cache-sets = <128>;
 			next-level-cache = <&l2_0>;
+			#cooling-cells = <2>;
 			mediatek,cci = <&cci>;
 		};
 
@@ -355,6 +358,7 @@
 			d-cache-line-size = <64>;
 			d-cache-sets = <128>;
 			next-level-cache = <&l2_0>;
+			#cooling-cells = <2>;
 			mediatek,cci = <&cci>;
 		};
 
@@ -377,6 +381,7 @@
 			d-cache-line-size = <64>;
 			d-cache-sets = <128>;
 			next-level-cache = <&l2_0>;
+			#cooling-cells = <2>;
 			mediatek,cci = <&cci>;
 		};
 
@@ -399,6 +404,7 @@
 			d-cache-line-size = <64>;
 			d-cache-sets = <128>;
 			next-level-cache = <&l2_0>;
+			#cooling-cells = <2>;
 			mediatek,cci = <&cci>;
 		};
 
@@ -421,6 +427,7 @@
 			d-cache-line-size = <64>;
 			d-cache-sets = <128>;
 			next-level-cache = <&l2_0>;
+			#cooling-cells = <2>;
 			mediatek,cci = <&cci>;
 		};
 
@@ -443,6 +450,7 @@
 			d-cache-line-size = <64>;
 			d-cache-sets = <256>;
 			next-level-cache = <&l2_1>;
+			#cooling-cells = <2>;
 			mediatek,cci = <&cci>;
 		};
 
@@ -465,6 +473,7 @@
 			d-cache-line-size = <64>;
 			d-cache-sets = <256>;
 			next-level-cache = <&l2_1>;
+			#cooling-cells = <2>;
 			mediatek,cci = <&cci>;
 		};
 
@@ -786,6 +795,175 @@
 			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW 0>;
 	};
 
+	thermal_zones: thermal-zones {
+		a55_cluster_thermal: a55-cluster-thermal {
+			polling-delay-passive = <100>;
+			polling-delay = <500>;
+			thermal-sensors = <&thermal 0>;
+			sustainable-power = <5000>;
+
+			trips {
+				a55_threshold: a55-trip-point0 {
+					temperature = <60000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+
+				a55_target: a55-trip-point1 {
+					temperature = <80000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+
+				a55_crit: a55-crit {
+					temperature = <105000>;
+					hysteresis = <2000>;
+					type = "critical";
+				};
+			};
+
+			cooling-maps {
+				map0 {
+					trip = <&a55_target>;
+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+							 <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+					contribution = <3072>;
+				};
+			};
+		};
+
+		a75_cluster_thermal: a75-cluster-thermal {
+			polling-delay-passive = <100>;
+			polling-delay = <500>;
+			thermal-sensors = <&thermal 1>;
+			sustainable-power = <5000>;
+
+			trips {
+				a75_threshold: a75-trip-point0 {
+					temperature = <60000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+
+				a75_target: a75-trip-point1 {
+					temperature = <80000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+
+				a75_crit: a75-crit {
+					temperature = <105000>;
+					hysteresis = <2000>;
+					type = "critical";
+				};
+			};
+
+			cooling-maps {
+				map0 {
+					trip = <&a75_target>;
+					cooling-device = <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+					contribution = <4096>;
+				};
+			};
+		};
+
+		cci_thermal: cci-thermal {
+			polling-delay-passive = <100>;
+			polling-delay = <500>;
+			thermal-sensors = <&thermal 2>;
+			sustainable-power = <5000>;
+
+			trips {
+				cci_threshold: cci-trip-point0 {
+					temperature = <60000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+
+				cci_target: cci-trip-point1 {
+					temperature = <80000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+
+				cci_crit: cci-crit {
+					temperature = <105000>;
+					hysteresis = <2000>;
+					type = "critical";
+				};
+			};
+		};
+
+
+		gpu_thermal: gpu-thermal {
+			polling-delay-passive = <100>;
+			polling-delay = <500>;
+			thermal-sensors = <&thermal 3>;
+			sustainable-power = <5000>;
+
+			trips {
+				gpu_threshold: gpu-trip-point0 {
+					temperature = <60000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+
+				gpu_target: gpu-trip-point1 {
+					temperature = <80000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+
+				gpu_crit: gpu-crit {
+					temperature = <105000>;
+					hysteresis = <2000>;
+					type = "critical";
+				};
+			};
+
+			cooling-maps {
+				map0 {
+					trip = <&gpu_threshold>;
+					cooling-device = <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+					contribution = <4096>;
+				};
+			};
+		};
+
+		soc_thermal: soc-thermal {
+			polling-delay-passive = <100>;
+			polling-delay = <500>;
+			thermal-sensors = <&thermal 4>;
+			sustainable-power = <5000>;
+
+			trips {
+				soc_threshold: soc-trip-point0 {
+					temperature = <60000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+
+				soc_target: soc-trip-point1 {
+					temperature = <80000>;
+					hysteresis = <2000>;
+					type = "passive";
+				};
+
+				soc_crit: soc-crit {
+					temperature = <105000>;
+					hysteresis = <2000>;
+					type = "critical";
+				};
+			};
+		};
+	};
+
 	soc {
 		#address-cells = <2>;
 		#size-cells = <2>;
@@ -1048,6 +1226,7 @@
 			dynamic-power-coefficient = <4687>;
 
 			operating-points-v2 = <&gpu_opp_table>;
+			#cooling-cells = <2>;
 			status = "disabled";
 		};
 
@@ -1123,6 +1302,21 @@
 			status = "disabled";
 		};
 
+		soc_data: efuse@08000000 {
+			compatible = "mediatek,efuse";
+			reg = <0 0x08000000 0 0x10>;
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			socinfo-data1@0 {
+				reg = <0x0 0x4>;
+			};
+
+			socinfo-data2@4 {
+				reg = <0x4 0x4>;
+			};
+		};
+
 		gic: interrupt-controller@c000000 {
 			compatible = "arm,gic-v3";
 			#interrupt-cells = <4>;
@@ -1171,6 +1365,30 @@
 			clocks = <&infracfg_ao CLK_INFRA_AP_DMA>;
 			clock-names = "apdma";
 			#dma-cells = <1>;
+		};
+
+		auxadc: auxadc@11001000 {
+			compatible = "mediatek,mt6768-auxadc",
+				     "mediatek,mt6765-auxadc";
+			reg = <0 0x11001000 0 0x1000>;
+			clocks = <&infracfg_ao CLK_INFRA_AUXADC>;
+			clock-names = "main";
+			#io-channel-cells = <1>;
+			status = "disabled";
+		};
+
+		thermal: thermal@1100b000 {
+			#thermal-sensor-cells = <1>;
+			compatible = "mediatek,mt6768-thermal";
+			reg = <0 0x1100b000 0 0x1000>;
+			interrupts = <GIC_SPI 99 IRQ_TYPE_LEVEL_LOW>;
+			clocks = <&infracfg_ao CLK_INFRA_THERM>, <&infracfg_ao CLK_INFRA_AUXADC>;
+			clock-names = "therm", "auxadc";
+			mediatek,auxadc = <&auxadc>;
+			mediatek,apmixedsys = <&apmixed>;
+			nvmem-cells = <&thermal_calibration>;
+			nvmem-cell-names = "calibration-data";
+			status = "disabled";
 		};
 
 		uart0: serial@11002000 {
@@ -1244,6 +1462,18 @@
 				clocks = <&infracfg_ao CLK_INFRA_ICUSB>;
 				clock-names = "ref";
 				#phy-cells = <1>;
+			};
+		};
+
+		efuse: efuse@11ce0000 {
+			compatible = "mediatek,mt6768-efuse",
+				     "mediatek,efuse";
+			reg = <0 0x11ce0000 0 0x1000>;
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			thermal_calibration: calib@180 {
+				reg = <0x180 0x3c>;
 			};
 		};
 
