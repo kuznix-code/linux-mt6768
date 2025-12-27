@@ -3,7 +3,6 @@
  * Copyright (c) 2014-2015, 2022 MediaTek Inc.
  * Author: Chaotian.Jing <chaotian.jing@mediatek.com>
  */
-#define DEBUG
 #include <linux/module.h>
 #include <linux/bitfield.h>
 #include <linux/bitops.h>
