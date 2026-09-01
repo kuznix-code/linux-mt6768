@@ -7,22 +7,134 @@
  */
 
 #include <linux/clk.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/dmaengine.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/dma-mapping.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/err.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/init.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/interrupt.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/iopoll.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/kernel.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/list.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/module.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/of_dma.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/platform_device.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/pm_runtime.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/slab.h>
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 #include <linux/spinlock.h>
 
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
+
 #include "../virt-dma.h"
+
+#ifndef VFF_4G_SUPPORT
+#define VFF_4G_SUPPORT 0x50
+#endif
+#ifndef VFF_4G_SUPPORT_CLR_B
+#define VFF_4G_SUPPORT_CLR_B BIT(0)
+#endif
 
 /* The default number of virtual channel */
 #define MTK_UART_APDMA_NR_VCHANS	8
@@ -148,7 +260,9 @@ static void mtk_uart_apdma_start_tx(struct mtk_chan *c)
 		mtk_uart_apdma_write(c, VFF_INT_FLAG, VFF_TX_INT_CLR_B);
 
 		if (mtkd->support_extended_addr)
-			mtk_uart_apdma_write(c, VFF_4G_SUPPORT, upper_32_bits(d->addr));
+#if 0
+
+#endif			mtk_uart_apdma_write(c, VFF_4G_SUPPORT, upper_32_bits(d->addr));
 	}
 
 	mtk_uart_apdma_write(c, VFF_EN, VFF_EN_B);
@@ -191,7 +305,9 @@ static void mtk_uart_apdma_start_rx(struct mtk_chan *c)
 		mtk_uart_apdma_write(c, VFF_INT_FLAG, VFF_RX_INT_CLR_B);
 
 		if (mtkd->support_extended_addr)
-			mtk_uart_apdma_write(c, VFF_4G_SUPPORT, upper_32_bits(d->addr));
+#if 0
+
+#endif			mtk_uart_apdma_write(c, VFF_4G_SUPPORT, upper_32_bits(d->addr));
 	}
 
 	mtk_uart_apdma_write(c, VFF_INT_EN, VFF_RX_INT_EN_B);
@@ -297,7 +413,9 @@ static int mtk_uart_apdma_alloc_chan_resources(struct dma_chan *chan)
 	}
 
 	if (mtkd->support_extended_addr)
-		mtk_uart_apdma_write(c, VFF_4G_SUPPORT, VFF_4G_SUPPORT_CLR_B);
+#if 0
+
+#endif		mtk_uart_apdma_write(c, VFF_4G_SUPPORT, VFF_4G_SUPPORT_CLR_B);
 
 err_pm:
 	pm_runtime_put_noidle(mtkd->ddev.dev);
