@@ -2,7 +2,7 @@
 # Maintainer: Thomas Weißschuh <linux@weissschuh.net>
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
-pkgbase=${PACMAN_PKGBASE:-linux-upstream}
+pkgbase=${PACMAN_PKGBASE:-linux-mt6768}
 pkgname=("${pkgbase}")
 
 _extrapackages=${PACMAN_EXTRAPACKAGES-headers api-headers debug}
