@@ -164,7 +164,7 @@ else
 	debian_revision=$("${srctree}/scripts/build-version")
 	packageversion=${upstream_version}-${debian_revision}
 fi
-sourcename=${KDEB_SOURCENAME:-linux-upstream}
+sourcename=${KDEB_SOURCENAME:-linux-mt6768}
 
 if [ "$ARCH" = "um" ] ; then
 	packagename=user-mode-linux
@@ -225,9 +225,9 @@ EOF
 if [ "${SRCARCH}" != um ]; then
 cat <<EOF >> debian/control
 
-Package: linux-libc-dev
+Package: linux-mt6768-libc-dev
 Section: devel
-Provides: linux-kernel-headers
+Provides: linux-mt6768-kernel-headers
 Architecture: $debarch
 Description: Linux support headers for userspace development
  This package provides userspaces headers from the Linux kernel.  These headers
@@ -238,7 +238,7 @@ EOF
 if is_enabled CONFIG_MODULES; then
 cat <<EOF >> debian/control
 
-Package: linux-headers-${KERNELRELEASE}
+Package: linux-headers-mt6768-${KERNELRELEASE}
 Architecture: $debarch
 Build-Profiles: <!pkg.${sourcename}.nokernelheaders>
 Description: Linux kernel headers for ${KERNELRELEASE} on $debarch
@@ -252,7 +252,7 @@ fi
 if is_enabled CONFIG_DEBUG_INFO; then
 cat <<EOF >> debian/control
 
-Package: linux-image-${KERNELRELEASE}-dbg
+Package: linux-image-mt6768-${KERNELRELEASE}-dbg
 Section: debug
 Architecture: $debarch
 Build-Profiles: <!pkg.${sourcename}.nokerneldbg>
