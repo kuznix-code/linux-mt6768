@@ -1,7 +1,7 @@
-name: kernel
+name: kernel-mt6768
 version: KERNELRELEASE
 summary: Linux kernel
-description: The upstream Linux kernel
+description: The upstream Linux kernel for MediaTek MT6768 devices
 grade: stable
 confinement: strict
 type: kernel
