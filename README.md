@@ -1,4 +1,8 @@
-Currently supported devices:
+# Kuznix Linux Fork for MT6768
+
+This is a Linux fork from [mt6768-mainline](https://github.com/mt6768-mainline/linux-mt6768), maintained by Kuznix for MediaTek MT6768 devices.
+
+## Currently supported devices:
   - Motorola Moto G13/23 aka *penangf* (with **ilitek** panel)
   - Xiaomi Redmi 9 aka *lancelot* (with **focaltech** panel **AND ktd3137** backlight)
   - Xiaomi Redmi 9 aka *galahad* (with **nt36672a** panel **AND ktd3137** backlight)
