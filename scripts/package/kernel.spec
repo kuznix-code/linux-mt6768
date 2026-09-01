@@ -3,8 +3,8 @@
 %{!?make: %define make make}
 %define makeflags %{?_smp_mflags} ARCH=%{ARCH}
 
-Name: kernel
-Summary: The Linux Kernel
+Name: kernel-mt6768
+Summary: The Linux Kernel for MediaTek MT6768 devices
 Version: %(echo %{KERNELRELEASE} | sed -e 's/-/_/g')
 Release: %{pkg_release}
 License: GPL
