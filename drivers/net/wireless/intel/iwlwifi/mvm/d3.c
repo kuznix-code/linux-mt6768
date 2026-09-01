@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
 /*
- * Copyright (C) 2012-2014, 2018-2025 Intel Corporation
+ * Copyright (C) 2012-2014, 2018-2026 Intel Corporation
  * Copyright (C) 2013-2015 Intel Mobile Communications GmbH
  * Copyright (C) 2016-2017 Intel Deutschland GmbH
  */
@@ -2783,7 +2783,7 @@ static int iwl_mvm_wowlan_store_wake_pkt(struct iwl_mvm *mvm,
 					 struct iwl_wowlan_status_data *status,
 					 u32 len)
 {
-	u32 data_size, packet_len = le32_to_cpu(notif->wake_packet_length);
+	u32 data_size, packet_len;
 
 	if (len < sizeof(*notif)) {
 		IWL_ERR(mvm, "Invalid WoWLAN wake packet notification!\n");
@@ -2802,6 +2802,7 @@ static int iwl_mvm_wowlan_store_wake_pkt(struct iwl_mvm *mvm,
 		return -EIO;
 	}
 
+	packet_len = le32_to_cpu(notif->wake_packet_length);
 	data_size = len - offsetof(struct iwl_wowlan_wake_pkt_notif, wake_packet);
 
 	/* data_size got the padding from the notification, remove it. */
@@ -2834,7 +2835,7 @@ static void iwl_mvm_nd_match_info_handler(struct iwl_mvm *mvm,
 	if (IS_ERR_OR_NULL(vif))
 		return;
 
-	if (len < sizeof(struct iwl_scan_offload_match_info)) {
+	if (len < sizeof(struct iwl_scan_offload_match_info) + matches_len) {
 		IWL_ERR(mvm, "Invalid scan match info notification\n");
 		return;
 	}
@@ -3239,6 +3240,8 @@ void iwl_mvm_fast_suspend(struct iwl_mvm *mvm)
 
 	IWL_DEBUG_WOWLAN(mvm, "Starting fast suspend flow\n");
 
+	iwl_mvm_pause_tcm(mvm, true);
+
 	mvm->fast_resume = true;
 	set_bit(IWL_MVM_STATUS_IN_D3, &mvm->status);
 
@@ -3294,6 +3297,8 @@ int iwl_mvm_fast_resume(struct iwl_mvm *mvm)
 		IWL_ERR(mvm, "Couldn't get the d3 notif %d\n", ret);
 		mvm->trans->state = IWL_TRANS_NO_FW;
 	}
+
+	iwl_mvm_resume_tcm(mvm);
 
 out:
 	clear_bit(IWL_MVM_STATUS_IN_D3, &mvm->status);

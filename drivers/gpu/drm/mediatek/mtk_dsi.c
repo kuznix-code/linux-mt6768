@@ -1002,12 +1002,6 @@ static int mtk_dsi_host_attach(struct mipi_dsi_host *host,
 			return PTR_ERR(dsi->next_bridge);
 	}
 
-	/*
-	 * set flag to request the DSI host bridge be pre-enabled before device bridge
-	 * in the chain, so the DSI host is ready when the device bridge is pre-enabled
-	 */
-	dsi->next_bridge->pre_enable_prev_first = true;
-
 	drm_bridge_add(&dsi->bridge);
 
 	ret = component_add(host->dev, &mtk_dsi_component_ops);
@@ -1240,10 +1234,6 @@ static int mtk_dsi_probe(struct platform_device *pdev)
 			       IRQF_TRIGGER_NONE, dev_name(&pdev->dev), dsi);
 	if (ret)
 		return dev_err_probe(&pdev->dev, ret, "Failed to request DSI irq\n");
-
-	init_waitqueue_head(&dsi->irq_wait_queue);
-
-	platform_set_drvdata(pdev, dsi);
 
 	dsi->bridge.of_node = dev->of_node;
 	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;

@@ -321,6 +321,7 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
 	struct coresight_device *sink = NULL;
 	struct coresight_device *user_sink = NULL, *last_sink = NULL;
 	struct etm_event_data *event_data = NULL;
+	int ret;
 
 	event_data = alloc_event_data(cpu);
 	if (!event_data)
@@ -418,8 +419,8 @@ static void *etm_setup_aux(struct perf_event *event, void **pages,
 		}
 
 		/* ensure we can allocate a trace ID for this CPU */
-		coresight_path_assign_trace_id(path, CS_MODE_PERF);
-		if (!IS_VALID_CS_TRACE_ID(path->trace_id)) {
+		ret = coresight_path_assign_trace_id(path, CS_MODE_PERF);
+		if (ret) {
 			cpumask_clear_cpu(cpu, mask);
 			coresight_release_path(path);
 			continue;
@@ -520,6 +521,7 @@ static void etm_event_start(struct perf_event *event, int flags)
 		goto out;
 
 	path = etm_event_cpu_path(event_data, cpu);
+	path->handle = handle;
 	/* We need a sink, no need to continue without one */
 	sink = coresight_get_sink(path);
 	if (WARN_ON_ONCE(!sink))
