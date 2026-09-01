@@ -262,7 +262,7 @@ static void mtk_uart_apdma_start_tx(struct mtk_chan *c)
 		if (mtkd->support_extended_addr)
 #if 0
 
-#endif			mtk_uart_apdma_write(c, VFF_4G_SUPPORT, upper_32_bits(d->addr));
+#endif
 	}
 
 	mtk_uart_apdma_write(c, VFF_EN, VFF_EN_B);
@@ -307,7 +307,7 @@ static void mtk_uart_apdma_start_rx(struct mtk_chan *c)
 		if (mtkd->support_extended_addr)
 #if 0
 
-#endif			mtk_uart_apdma_write(c, VFF_4G_SUPPORT, upper_32_bits(d->addr));
+#endif
 	}
 
 	mtk_uart_apdma_write(c, VFF_INT_EN, VFF_RX_INT_EN_B);
@@ -415,7 +415,7 @@ static int mtk_uart_apdma_alloc_chan_resources(struct dma_chan *chan)
 	if (mtkd->support_extended_addr)
 #if 0
 
-#endif		mtk_uart_apdma_write(c, VFF_4G_SUPPORT, VFF_4G_SUPPORT_CLR_B);
+#endif
 
 err_pm:
 	pm_runtime_put_noidle(mtkd->ddev.dev);
