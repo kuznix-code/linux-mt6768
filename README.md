@@ -1,6 +1,6 @@
 # Kuznix Linux Fork for MT6768
 
-This is a Linux fork from [mt6768-mainline](https://github.com/mt6768-mainline/linux-mt6768), maintained by Kuznix for MediaTek MT6768 devices.
+This is a Linux fork from [mt6768-mainline](https://github.com/mt6768-mainline/linux), maintained by Kuznix for MediaTek MT6768 devices.
 
 ## Currently supported devices:
   - Motorola Moto G13/23 aka *penangf* (with **ilitek** panel)
